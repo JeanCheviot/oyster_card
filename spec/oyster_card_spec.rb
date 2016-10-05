@@ -67,9 +67,17 @@ describe Oystercard do
 
   describe '#touch_out' do
     let(:entry_station) {double :entry_station}
+    let(:exit_station) {double :exit_station}
     before do
       oystercard.top_up(20)
       oystercard.touch_in(entry_station)
+    end
+
+
+    it 'stores exit station' do
+      oystercard.touch_in(entry_station)
+      oystercard.touch_out(exit_station)
+      expect(oystercard.exit_station).to eq exit_station
     end
 
     it 'responds to touch out method' do
@@ -77,12 +85,12 @@ describe Oystercard do
     end
 
     it 'can touch out' do
-      oystercard.touch_out
+      oystercard.touch_out(exit_station)
       expect(oystercard).not_to be_in_journey
     end
 
     it 'deducts a fare' do
-      expect{oystercard.touch_out}.to change{oystercard.balance}.by(-Oystercard::MINIMUM_BALANCE)
+      expect{oystercard.touch_out(exit_station)}.to change{oystercard.balance}.by(-Oystercard::MINIMUM_BALANCE)
     end
   end
 end
