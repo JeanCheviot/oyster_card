@@ -26,12 +26,16 @@ attr_reader :balance, :limit, :in_journey, :minimum, :entry_station, :exit_stati
     raise "Insufficient balance to touch in" if @balance < @minimum
     @in_journey = true
     @entry_station = entry_station
+    @journey = {}
+    @journey[:start] = entry_station
   end
 
   def touch_out(exit_station)
     deduct(@minimum)
     @entry_station = nil
     @exit_station = exit_station
+    @journey[:finish] = exit_station
+    @journeys << @journey
   end
 
   private
