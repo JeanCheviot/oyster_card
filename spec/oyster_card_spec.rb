@@ -42,6 +42,15 @@ describe Oystercard do
     end
   end
 
+  describe "Journey hash" do
+    let(:entry_station) {double :entry_station}
+    let(:exit_station) {double :exit_station}
+    #oystercard = Oystercard.new
+    subject { { :start => entry_station, :finish => exit_station } }
+      it { should include(:start => entry_station, :finish => exit_station) }
+  end
+
+
   describe '#touch_in' do
       let(:entry_station) {double :entry_station}
     it 'responds to touch in method' do
@@ -72,6 +81,11 @@ describe Oystercard do
       oystercard.top_up(20)
       oystercard.touch_in(entry_station)
     end
+
+    it 'has an empty list of journeys by default' do
+      expect(oystercard.journeys).to be_empty
+    end
+
 
 
     it 'stores exit station' do
