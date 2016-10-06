@@ -82,16 +82,8 @@ describe Oystercard do
       oystercard.touch_in(entry_station)
     end
 
-    it 'has an empty list of journeys by default' do
-      expect(oystercard.journeys).to be_empty
-    end
-
-
-
     it 'stores exit station' do
-      oystercard.touch_in(entry_station)
-      oystercard.touch_out(exit_station)
-      expect(oystercard.exit_station).to eq exit_station
+      expect(oystercard.touch_out(exit_station)).to eq(oystercard.all_journeys)
     end
 
     it 'responds to touch out method' do
