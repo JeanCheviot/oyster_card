@@ -1,7 +1,7 @@
 require './lib/station.rb'
 
 class Journey
-attr_reader  :entry_station, :exit_station, :current_journey, :in_journey
+attr_reader  :entry_station, :exit_station, :current_journey
 
   def initialize
     @entry_station
